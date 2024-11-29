@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Регистрация</h1>
+
+<form method="POST" action="{{ url_for('routes.register') }}">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+    </p>
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(size=32) }}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+    </p>
+    <p>
+        {{ form.confirm_password.label }}<br>
+        {{ form.confirm_password(size=32) }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+<p>Уже есть аккаунт? <a href="{{ url_for('routes.login') }}">Войти</a></p>
+{% endblock %}

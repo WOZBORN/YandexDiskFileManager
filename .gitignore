@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Environment variables
+.env
+.env.*
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Flask specific
+instance/
+*.db
+*.sqlite3
+instance/
+
+# Migrations
+migrations/
+versions/
+
+# Logs
+*.log
+*.pot
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test and coverage files
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.cache
+nosetests.xml
+pytest_cache/
+junit.xml
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Profiling data
+*.prof

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добро пожаловать в YandexDiskFileManager</h1>
+
+{% if current_user.is_authenticated %}
+    <p>Привет, {{ current_user.username }}!</p>
+    <p><a href="{{ url_for('routes.logout') }}">Выйти</a></p>
+{% else %}
+    <p><a href="{{ url_for('routes.login') }}">Войти</a> или <a href="{{ url_for('routes.register') }}">Зарегистрироваться</a></p>
+{% endif %}
+
+<form method="GET" action="{{ url_for('routes.files', public_key='') }}">
+    <label for="public_key">Введите публичный ключ:</label><br>
+    <input type="text" id="public_key" name="public_key" placeholder="Публичный ключ" required>
+    <button type="submit">Получить файлы</button>
+</form>
+{% endblock %}
