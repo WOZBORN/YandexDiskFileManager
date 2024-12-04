@@ -1,18 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Добро пожаловать в YandexDiskFileManager</h1>
 
-{% if current_user.is_authenticated %}
-    <p>Привет, {{ current_user.username }}!</p>
-    <p><a href="{{ url_for('routes.logout') }}">Выйти</a></p>
-{% else %}
-    <p><a href="{{ url_for('routes.login') }}">Войти</a> или <a href="{{ url_for('routes.register') }}">Зарегистрироваться</a></p>
-{% endif %}
+<div class="container text-center">
+    <!-- Welcome Section -->
+    <h1 class="display-4 my-4">Добро пожаловать!</h1>
+    <p class="lead">
+        <strong>YandexDiskFileManager</strong> — инструмент для работы с публичными файлами на Яндекс.Диске.
+    </p>
 
-<form method="GET" action="{{ url_for('routes.files', public_key='') }}">
-    <label for="public_key">Введите публичный ключ:</label><br>
-    <input type="text" id="public_key" name="public_key" placeholder="Публичный ключ" required>
-    <button type="submit">Получить файлы</button>
-</form>
+    <!-- User Authentication Section -->
+    {% if current_user.is_authenticated %}
+        <div class="alert alert-success">
+            Привет, {{ current_user.username }}!
+            <p>Вы вошли в систему. Хотите выйти? <a href="{{ url_for('routes.logout') }}" class="alert-link">Нажмите здесь</a>.</p>
+        </div>
+        <!-- Public Key Input Form -->
+        <section id="public-key-form" class="mt-4">
+            <form method="GET" action="{{ url_for('routes.files', public_key='') }}" class="mt-3">
+                <div class="form-group">
+                    <label for="public_key">Введите публичный ключ ниже, чтобы просмотреть или скачать файлы из общего доступа.</label>
+                    <input
+                        type="text"
+                        id="public_key"
+                        name="public_key"
+                        class="form-control"
+                        placeholder="Публичный ключ"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Получить файлы</button>
+            </form>
+        </section>
+    {% else %}
+        <div class="alert alert-warning">
+            Для доступа к функциям <a href="{{ url_for('routes.login') }}" class="alert-link">войдите</a> или
+            <a href="{{ url_for('routes.register') }}" class="alert-link">зарегистрируйтесь</a>.
+        </div>
+    {% endif %}
+</div>
+
 {% endblock %}

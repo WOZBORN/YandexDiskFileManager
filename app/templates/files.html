@@ -1,24 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Список файлов</h1>
 
-<ul>
-    {% if files %}
-        {% for file in files %}
-            <li>
-                <strong>{{ file['name'] }}</strong><br>
-                {% if 'file' in file %}
-                    <a href="{{ file['file'] }}" target="_blank">Скачать</a>
-                {% else %}
-                    <span>Файл недоступен для скачивания</span>
-                {% endif %}
-            </li>
-        {% endfor %}
-    {% else %}
-        <p>Нет доступных файлов.</p>
+<div class="container">
+    <!-- Page Title -->
+    <h1 class="my-4 text-center">Список файлов</h1>
+
+    <!-- Back Button -->
+    {% if path %}
+        <a href="{{ url_for('routes.files', public_key=public_key, path=path.rsplit('/', 1)[0]) }}" class="btn btn-secondary mb-3">
+            Назад
+        </a>
     {% endif %}
-</ul>
 
-<a href="{{ url_for('routes.index') }}">Назад на главную</a>
+    <!-- File Grid -->
+    <div class="row">
+        {% if files %}
+            {% for file in files %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 text-center">
+                        <img
+                            src="{{ url_for('static', filename='img/folder.png') if file['type'] == 'dir' else url_for('static', filename='img/file.png') }}"
+                            class="card-img-top"
+                            alt="{{ file['name'] }}"
+                        >
+                        <div class="card-body">
+                            <h5 class="card-title">{{ file['name'] }}</h5>
+                            {% if file['type'] == 'dir' %}
+                                <a href="{{ url_for('routes.files', public_key=public_key, path=file['path'][5:]) }}" class="btn btn-outline-primary btn-sm">
+                                    Открыть папку
+                                </a>
+                            {% elif file['type'] == 'file' and 'file' in file %}
+                                <a href="{{ file['file'] }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm">
+                                    Скачать
+                                </a>
+                            {% else %}
+                                <span class="text-muted">Недоступно</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted text-center">Нет доступных файлов.</p>
+        {% endif %}
+    </div>
+
+    <!-- Back to Home -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('routes.index') }}" class="btn btn-outline-dark">Назад на главную</a>
+    </div>
+</div>
+
 {% endblock %}

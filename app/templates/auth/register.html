@@ -1,28 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Регистрация</h1>
 
-<form method="POST" action="{{ url_for('routes.register') }}">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
-        {{ form.username(size=32) }}
-    </p>
-    <p>
-        {{ form.email.label }}<br>
-        {{ form.email(size=32) }}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-    </p>
-    <p>
-        {{ form.confirm_password.label }}<br>
-        {{ form.confirm_password(size=32) }}
-    </p>
-    <p>{{ form.submit() }}</p>
-</form>
+<div class="container">
+    <!-- Registration Page Title -->
+    <h1 class="my-4 text-center">Регистрация</h1>
 
-<p>Уже есть аккаунт? <a href="{{ url_for('routes.login') }}">Войти</a></p>
+    <!-- Registration Form -->
+    <form method="POST" action="{{ url_for('routes.register') }}" class="mx-auto" style="max-width: 400px;">
+        <!-- CSRF Protection -->
+        {{ form.hidden_tag() }}
+
+        <!-- Username Input -->
+        <div class="form-group">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control", size=32) }}
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group mt-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", size=32) }}
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group mt-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", size=32) }}
+        </div>
+
+        <!-- Confirm Password Input -->
+        <div class="form-group mt-3">
+            {{ form.confirm_password.label(class="form-label") }}
+            {{ form.confirm_password(class="form-control", size=32) }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            {{ form.submit(class="btn btn-success btn-block") }}
+        </div>
+    </form>
+
+    <!-- Link to Login Page -->
+    <p class="text-center mt-3">
+        Уже есть аккаунт? <a href="{{ url_for('routes.login') }}">Войти</a>
+    </p>
+</div>
+
 {% endblock %}
